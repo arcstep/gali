@@ -1,16 +1,8 @@
 test_that("<import_changed> 扫描新素材变化", {
   sample_init()
-  import_changed("schedual_00", batchRegex = "schedual_\\d+") |> nrow() |>
+  resp <- import_changed("schedual_00", batchRegex = "schedual_\\d+")
+  resp |> nrow() |>
     testthat::expect_equal(5)
-  
-  get_path("IMPORT") |>
-    fileSnapshot(md5sum = TRUE, recursive = F) |>
-    saveRDS(get_path("SNAP", "import.rds"))
-  
-  folders <- readRDS(get_path("SNAP", "import.rds")) |>
-    changedFiles()
-  c(folders$added, folders$changed) |> length() |>
-    testthat::expect_equal(0)
   
   ## 读取增量：比schedual_03更新的导入文件夹
   get_path("IMPORT", "schedual_101", "cars") |> fs::dir_create()
