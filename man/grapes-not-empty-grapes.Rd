@@ -13,6 +13,8 @@ a \%not-empty\% b
 Other utils function: 
 \code{\link{\%empty\%}()},
 \code{\link{\%nin\%}()},
+\code{\link{\%not-regex\%}()},
+\code{\link{\%regex\%}()},
 \code{\link{create_dir}()},
 \code{\link{id_gen}()},
 \code{\link{id_parse}()},

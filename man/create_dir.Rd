@@ -14,6 +14,8 @@ Other utils function:
 \code{\link{\%empty\%}()},
 \code{\link{\%nin\%}()},
 \code{\link{\%not-empty\%}()},
+\code{\link{\%not-regex\%}()},
+\code{\link{\%regex\%}()},
 \code{\link{id_gen}()},
 \code{\link{id_parse}()},
 \code{\link{remove_dir}()}

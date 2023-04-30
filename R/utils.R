@@ -1,3 +1,17 @@
+#' @title 条件过滤：使用正则表达式
+#' @family utils function
+#' @export
+`%regex%` <- function(a, b) {
+  stringr::str_detect(a, b)
+}
+
+#' @title 条件过滤：使用正则表达式取反
+#' @family utils function
+#' @export
+`%not-regex%` <- function(a, b) {
+  stringr::str_detect(a, b, negate = TRUE)
+}
+
 #' @title 条件过滤：取反
 #' @family utils function
 #' @export
