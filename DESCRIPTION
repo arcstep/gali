@@ -1,0 +1,33 @@
+Package: gali
+Title: A Simpole Database for Analysis base on Apache Parquet
+Version: 0.1.1.9000
+Authors@R: 
+    person("hongwei", "xue", , "43801@qq.com", role = c("aut", "cre"))
+Description: What the package does (one paragraph).
+License: Not Open Source LICENSE
+Depends:
+    R (>= 4.1.0)
+Imports: 
+    arrow,
+    config,
+    digest,
+    dplyr,
+    fs,
+    lubridate,
+    plyr,
+    purrr,
+    rlang,
+    stringi,
+    stringr,
+    tibble,
+    tidyr,
+    yaml
+Suggests: 
+    forcats,
+    spelling,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Encoding: UTF-8
+Language: en-US
+LazyData: true
+RoxygenNote: 7.2.3
