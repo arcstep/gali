@@ -212,7 +212,7 @@ ds_count <- function(d, columns = c(), sort = TRUE, name = "n") {
 #' @export
 ds_distinct <- function(d, columns = c()) {
   d |>
-    select(columns) |>
+    select(all_of(columns)) |>
     collect() |>
     distinct(!!!syms(columns))
 }
@@ -237,7 +237,7 @@ ds_as_unique <- function(ds, keyColumns = c()) {
 #' @export
 ds_dup_count <- function(d, columns = c(), dupColumns = c(), sort = TRUE, name = "n") {
   d |>
-    select(c(columns, dupColumns)) |>
+    select(all_of(c(columns, dupColumns))) |>
     collect() |>
     distinct(!!!syms(c(columns, dupColumns))) |>
     count(!!!syms(columns), sort = sort, name = name)
@@ -304,7 +304,7 @@ ds_inner_join <- function(x, y, x_by, y_by = x_by, ...) {
   }
   y1 <- c(names(y)[!(names(y) %in% names(x))], y_by) |> unique()
   names(y_by) <- x_by
-  inner_join(x, y |> select(!!!syms(y1)), by = y_by, ...)
+  inner_join(x, y |> select(all_of(y1)), by = y_by, ...)
 }
 
 #' @title 外连接
@@ -316,7 +316,7 @@ ds_full_join <- function(x, y, x_by, y_by = x_by, ...) {
   }
   y1 <- c(names(y)[!(names(y) %in% names(x))], y_by) |> unique()
   names(y_by) <- x_by
-  full_join(x, y |> select(!!!syms(y1)), by = y_by, ...)
+  full_join(x, y |> select(all_of(y1)), by = y_by, ...)
 }
 
 #' @title 左连接
@@ -328,7 +328,7 @@ ds_left_join <- function(x, y, x_by, y_by = x_by, ...) {
   }
   y1 <- c(names(y)[!(names(y) %in% names(x))], y_by) |> unique()
   names(y_by) <- x_by
-  left_join(x, y |> select(!!!syms(y1)), by = y_by, ...)
+  left_join(x, y |> select(all_of(y1)), by = y_by, ...)
 }
 
 #' @title 右连接
@@ -340,7 +340,7 @@ ds_right_join <- function(x, y, x_by, y_by = x_by, ...) {
   }
   y1 <- c(names(y)[!(names(y) %in% names(x))], y_by) |> unique()
   names(y_by) <- x_by
-  right_join(x, y |> select(!!!syms(y1)), by = y_by, ...)
+  right_join(x, y |> select(all_of(y1)), by = y_by, ...)
 }
 
 #' @title 过滤连接

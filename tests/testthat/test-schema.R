@@ -17,8 +17,14 @@ test_that("原子类型推断", {
 })
 
 test_that("<fs>类型推断", {
+  f1 <- tempdir()
+  remove_dir(f1)
+  fs::dir_create(f1)
+  
   schema_from_tibble(fs::dir_info(tempdir()))$fieldType[1:4] |>
     testthat::expect_identical(c("path", "enum", "bytes", "permission"))
+  
+  remove_dir(f1)
 })
 
 test_that("<lubridate>类型推断", {
@@ -164,7 +170,7 @@ test_that("读写<duration>和<difftime>类型", {
     t = as_date("2022-1-1") - as_date("2021-1-1"),
     `@lasteModifiedAt` = lubridate::now(tzone = "Asia/Shanghai")
   )
-  d2 <- d1 |> mutate(t |> as.duration() |> as.difftime())
+  d2 <- d1 |> mutate(t = t |> as.difftime())
   ds <- schema_from_tibble(d2) |> schema_to_arrow()
   
   f <- tempdir()
