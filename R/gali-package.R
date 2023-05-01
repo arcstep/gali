@@ -74,6 +74,7 @@
 #' @importFrom purrr partial
 #' @importFrom purrr pmap
 #' @importFrom purrr walk
+#' @importFrom readr read_csv
 #' @importFrom rlang empty_env
 #' @importFrom rlang is_empty
 #' @importFrom rlang sym
