@@ -117,6 +117,7 @@ config_write <- function(path = "./", yml = "config.yml", option = list()) {
         "ROOT_PATH" = fs::path_abs(path),
         "UPLOAD" = "./UPLOAD",
         "IMPORT" = "./IMPORT",
+        "TASK" = "./TASK",
         "CACHE" = "./CACHE"
         )
     }

@@ -30,6 +30,7 @@
 #' @importFrom arrow uint8
 #' @importFrom arrow utf8
 #' @importFrom arrow write_dataset
+#' @importFrom callr rscript
 #' @importFrom digest digest
 #' @importFrom dplyr anti_join
 #' @importFrom dplyr arrange

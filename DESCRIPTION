@@ -6,9 +6,12 @@ Authors@R:
 Description: What the package does (one paragraph).
 License: Not Open Source LICENSE
 Depends:
-    R (>= 4.1.0)
+    R (>= 4.1.0),
+    knitr,
+    rmarkdown
 Imports: 
     arrow,
+    callr,
     config,
     digest,
     dplyr,
@@ -24,7 +27,6 @@ Imports:
     tidyr,
     yaml
 Suggests: 
-    forcats,
     spelling,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
