@@ -73,19 +73,19 @@ task_yaml <- function(rmdName, topic = "TASK") {
 #' @title 直接运行RMD文件包含的有效脚本
 #' @family rmd scripts functions
 #' @export
-task_render <- function(rmdName, topic = "TASK", pure = FALSE) {
+task_render <- function(rmdName, topic = "TASK", pure = FALSE, quiet = TRUE) {
   rmdPath <- task_path(rmdName, "rmd", topic)
   scriptPath <- task_path(rmdName, "script", topic)
   outputDir <- task_path(rmdName, "output", topic)
   
   ## render pure script
   create_dir(scriptPath |> fs::path_dir())
-  knit(rmdPath, scriptPath, tangle = T)
+  knit(rmdPath, scriptPath, tangle = T, quiet = quiet)
   
   ## render output
   if(!pure) {
     create_dir(outputDir)
-    rmarkdown::render(rmdPath, output_dir = outputDir)
+    rmarkdown::render(rmdPath, output_dir = outputDir, quiet = quiet)
   }
 }
 
@@ -97,7 +97,7 @@ task_run <- function(rmdName, topic = "TASK") {
   if(!fs::file_exists(scriptPath)) {
     task_render(rmdName, topic, pure = T)
   }
-  callr::rscript(scriptPath)
+  callr::r(function(p) source(p), args = list(p = scriptPath))
 }
 
 #' @title 保存RMD脚本
@@ -117,3 +117,4 @@ task_save <- function(newParams = list(), rmdName, topic = "TASK") {
   ## write to Rmd
   writeLines(newContents$code, con = task_path(rmdName, "rmd", topic = topic))
 }
+

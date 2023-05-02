@@ -1,0 +1,16 @@
+---
+title: Main Script
+params:
+  rootPath: "./"
+---
+
+## 被source执行的Rmd文件
+
+```{r}
+library(gali)
+params$rootPath |> config_init()
+
+source(task_path("2-B", "script"))
+paste(myName, "XX")
+```
+

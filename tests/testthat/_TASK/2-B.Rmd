@@ -1,0 +1,10 @@
+---
+title: Script to Source
+---
+
+## 被source执行的Rmd文件
+
+```{r}
+myName <- "lele"
+```
+
