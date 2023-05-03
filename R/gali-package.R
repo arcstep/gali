@@ -46,6 +46,7 @@
 #' @importFrom dplyr left_join
 #' @importFrom dplyr mutate
 #' @importFrom dplyr n
+#' @importFrom dplyr nest_by
 #' @importFrom dplyr rename
 #' @importFrom dplyr row_number
 #' @importFrom dplyr rows_append

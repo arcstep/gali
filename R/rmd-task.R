@@ -79,8 +79,10 @@ task_load <- function(rmdName, topic = "TASK") {
 #' @title 加载RMD文件的Yaml元数据
 #' @family rmd scripts functions
 #' @export
-task_yaml <- function(rmdName, topic = "TASK") {
-  contents <- task_load(rmdName, topic)
+task_yaml <- function(rmdName = NULL, contents = "", topic = "TASK") {
+  if(!is.null(rmdName)) {
+    contents <- task_load(rmdName, topic)
+  }
   yml <- contents$code[[1]] |> stringr::str_sub(4, -4)
   yaml::read_yaml(text = yml)
 }
@@ -121,7 +123,7 @@ task_run <- function(rmdName, topic = "TASK") {
 task_save <- function(newParams = list(), rmdName, topic = "TASK") {
   contents <- task_load(rmdName, topic)
   ##
-  yml <- yaml::read_yaml(text = contents$code[[1]] |> stringr::str_sub(4, -4))
+  yml <- task_yaml(contents = contents)
   meta <- purrr::list_modify(yml, params = newParams) |> yaml::as.yaml()
   newContents <- rbind(
     tibble(

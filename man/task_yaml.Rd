@@ -4,7 +4,7 @@
 \alias{task_yaml}
 \title{加载RMD文件的Yaml元数据}
 \usage{
-task_yaml(rmdName, topic = "TASK")
+task_yaml(rmdName = NULL, contents = "", topic = "TASK")
 }
 \description{
 加载RMD文件的Yaml元数据
