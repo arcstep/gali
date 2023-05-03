@@ -61,6 +61,7 @@
 #' @importFrom dplyr summarise
 #' @importFrom dplyr tbl
 #' @importFrom dplyr ungroup
+#' @importFrom glue glue
 #' @importFrom lubridate as_date
 #' @importFrom lubridate as_datetime
 #' @importFrom lubridate as.duration

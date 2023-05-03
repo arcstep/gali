@@ -1,4 +1,3 @@
-
 #' @title RMD脚本路径
 #' @family rmd scripts functions
 #' @export
@@ -10,6 +9,22 @@ task_path <- function(rmdName, type = c("rmd", "output", "script"), topic = "TAS
     "script" = get_path(topic, "_scripts", paste0(rmdName, ".R")),
     stop("Unkonwn RMD Script Type: ", type[[1]])
   )
+}
+
+#' @title RMD脚本清单
+#' @family rmd scripts functions
+#' @export
+task_all <- function(type = c("rmd", "output", "script"), topic = "TASK") {
+  switch(
+    type[[1]],
+    "rmd" = fs::dir_info(get_path(topic), recurse = T, type = "file", glob = "*.Rmd"),
+    "output" = fs::dir_info(get_path(topic, "_output"), recurse = T, type = "file", glob = "*.html"),
+    "script" = fs::dir_info(get_path(topic, "_scripts"), recurse = T, type = "file", glob = "*.R"),
+    stop("Unkonwn RMD Script Type: ", type[[1]])
+  ) |>
+    mutate(taskName = stringr::str_remove_all(path, glue("{get_path(topic)}/|.Rmd$|.R$|.html$|.htm$"))) |>
+    select(taskName, size, modification_time, path) |>
+    rename(lastModifiedAt = modification_time)
 }
 
 #' @title 加载RMD文件为多个段落

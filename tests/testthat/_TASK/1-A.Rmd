@@ -1,5 +1,6 @@
 ---
 title: My ABC
+date: '`r format(Sys.Date())`'
 params:
   a: 3
   b: !r Sys.Date()

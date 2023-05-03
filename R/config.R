@@ -94,6 +94,13 @@ config_load <- function(path = "./", yml = "config.yml") {
   if("IMPORT" %in% get_topics()) {
     if(!ds_exists("__IMPORT_FILES__")) import_init()
   }
+  
+  ##
+  if("TASK" %in% get_topics()) {
+    create_dir(get_path("TASK", "_output"))
+    create_dir(get_path("TASK", "_scripts"))
+  }
+  
 }
 
 #' @title 创建或补写配置项到磁盘

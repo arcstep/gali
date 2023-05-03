@@ -11,6 +11,7 @@ RMD脚本路径
 }
 \seealso{
 Other rmd scripts functions: 
+\code{\link{task_all}()},
 \code{\link{task_load}()},
 \code{\link{task_render}()},
 \code{\link{task_run}()},

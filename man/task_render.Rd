@@ -11,6 +11,7 @@ task_render(rmdName, topic = "TASK", pure = FALSE, quiet = TRUE)
 }
 \seealso{
 Other rmd scripts functions: 
+\code{\link{task_all}()},
 \code{\link{task_load}()},
 \code{\link{task_path}()},
 \code{\link{task_run}()},
