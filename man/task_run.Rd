@@ -4,7 +4,14 @@
 \alias{task_run}
 \title{直接运行RMD文件包含的有效脚本}
 \usage{
-task_run(rmdName, topic = "TASK")
+task_run(
+  rmdName,
+  topic = "TASK",
+  stdoutPath = NULL,
+  stderrorPath = NULL,
+  lineCallback = NULL,
+  blockCallback = NULL
+)
 }
 \description{
 直接运行RMD文件包含的有效脚本

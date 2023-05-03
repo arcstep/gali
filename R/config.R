@@ -98,6 +98,7 @@ config_load <- function(path = "./", yml = "config.yml") {
   ##
   if("TASK" %in% get_topics()) {
     create_dir(get_path("TASK", "_output"))
+    create_dir(get_path("TASK", "_logs"))
     create_dir(get_path("TASK", "_scripts"))
   }
   

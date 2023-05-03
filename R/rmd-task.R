@@ -90,31 +90,48 @@ task_yaml <- function(rmdName = NULL, contents = "", topic = "TASK") {
 #' @title 直接运行RMD文件包含的有效脚本
 #' @family rmd scripts functions
 #' @export
-task_render <- function(rmdName, topic = "TASK", pure = FALSE, quiet = TRUE) {
+task_render <- function(rmdName, topic = "TASK",
+                        stdoutPath = NULL, stderrorPath = NULL,
+                        lineCallback = NULL, blockCallback = NULL,
+                        pure = F, quiet = F) {
   rmdPath <- task_path(rmdName, "rmd", topic)
   scriptPath <- task_path(rmdName, "script", topic)
   outputDir <- task_path(rmdName, "output", topic)
   
   ## render pure script
-  create_dir(scriptPath |> fs::path_dir())
   knit(rmdPath, scriptPath, tangle = T, quiet = quiet)
   
   ## render output
   if(!pure) {
-    create_dir(outputDir)
-    rmarkdown::render(rmdPath, output_dir = outputDir, quiet = quiet)
+    callr::r(
+      function(rmdPath, outputDir, quiet) {
+        rmarkdown::render(rmdPath, output_dir = outputDir, quiet = quiet)
+      },
+      args = list(rmdPath = rmdPath, outputDir = outputDir, quiet = quiet),
+      stdout = stdoutPath,
+      stderr = stderrorPath,
+      callback = lineCallback,
+      block_callback = blockCallback
+    )
   }
 }
 
 #' @title 直接运行RMD文件包含的有效脚本
 #' @family rmd scripts functions
 #' @export
-task_run <- function(rmdName, topic = "TASK") {
+task_run <- function(rmdName, topic = "TASK",
+                     stdoutPath = NULL, stderrorPath = NULL,
+                     lineCallback = NULL, blockCallback = NULL) {
   scriptPath <- task_path(rmdName, "script", topic)
-  if(!fs::file_exists(scriptPath)) {
-    task_render(rmdName, topic, pure = T)
-  }
-  callr::r(function(p) source(p), args = list(p = scriptPath))
+  task_render(rmdName, topic, pure = T)
+  callr::r(
+    function(p) source(p),
+    args = list(p = scriptPath),
+    stdout = stdoutPath,
+    stderr = stderrorPath,
+    callback = lineCallback,
+    block_callback = blockCallback
+  )
 }
 
 #' @title 保存RMD脚本
