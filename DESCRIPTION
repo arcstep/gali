@@ -1,6 +1,6 @@
 Package: gali
 Title: A Simpole Database for Analysis base on Apache Parquet
-Version: 0.2.5.9000
+Version: 0.2.6.9000
 Authors@R: 
     person("hongwei", "xue", , "43801@qq.com", role = c("aut", "cre"))
 Description: What the package does (one paragraph).

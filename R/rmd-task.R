@@ -93,27 +93,24 @@ task_yaml <- function(rmdName = NULL, contents = "", topic = "TASK") {
 task_render <- function(rmdName, topic = "TASK",
                         stdoutPath = NULL, stderrorPath = NULL,
                         lineCallback = NULL, blockCallback = NULL,
-                        pure = F, quiet = F) {
+                        quiet = F) {
   rmdPath <- task_path(rmdName, "rmd", topic)
   scriptPath <- task_path(rmdName, "script", topic)
   outputDir <- task_path(rmdName, "output", topic)
-  
-  ## render pure script
-  knit(rmdPath, scriptPath, tangle = T, quiet = quiet)
-  
+
+  ##  
+  knit(rmdPath, scriptPath, tangle = T, quiet = T)
   ## render output
-  if(!pure) {
-    callr::r(
-      function(rmdPath, outputDir, quiet) {
-        rmarkdown::render(rmdPath, output_dir = outputDir, quiet = quiet)
-      },
-      args = list(rmdPath = rmdPath, outputDir = outputDir, quiet = quiet),
-      stdout = stdoutPath,
-      stderr = stderrorPath,
-      callback = lineCallback,
-      block_callback = blockCallback
-    )
-  }
+  callr::r(
+    function(rmdPath, outputDir, quiet) {
+      rmarkdown::render(rmdPath, output_dir = outputDir, quiet = quiet)
+    },
+    args = list(rmdPath = rmdPath, outputDir = outputDir, quiet = quiet),
+    stdout = stdoutPath,
+    stderr = stderrorPath,
+    callback = lineCallback,
+    block_callback = blockCallback
+  )
 }
 
 #' @title 直接运行RMD文件包含的有效脚本
@@ -121,9 +118,13 @@ task_render <- function(rmdName, topic = "TASK",
 #' @export
 task_run <- function(rmdName, topic = "TASK",
                      stdoutPath = NULL, stderrorPath = NULL,
-                     lineCallback = NULL, blockCallback = NULL) {
+                     lineCallback = NULL, blockCallback = NULL,
+                     quiet = F) {
+  ##
   scriptPath <- task_path(rmdName, "script", topic)
-  task_render(rmdName, topic, pure = T)
+  rmdPath <- task_path(rmdName, "rmd", topic)
+  ## render pure script
+  knit(rmdPath, scriptPath, tangle = T, quiet = quiet)
   callr::r(
     function(p) source(p),
     args = list(p = scriptPath),

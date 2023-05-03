@@ -32,7 +32,7 @@ test_that("使用source执行外部R源文件", {
   ## 使得Rmd文件能够找到rootPath文件夹
   task_save(list("rootPath" = rootPath), "2-C")
   ##
-  c("2-B", "2-C") |> purrr::walk(~ task_render(.x, pure = T, quiet = T))
+  c("2-B", "2-C") |> purrr::walk(~ task_render(.x))
   task_run("2-C")$value |> testthat::expect_equal("lele XX")
 
   sample_remove()

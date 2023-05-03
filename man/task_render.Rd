@@ -11,7 +11,6 @@ task_render(
   stderrorPath = NULL,
   lineCallback = NULL,
   blockCallback = NULL,
-  pure = F,
   quiet = F
 )
 }

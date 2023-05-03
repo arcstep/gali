@@ -10,7 +10,8 @@ task_run(
   stdoutPath = NULL,
   stderrorPath = NULL,
   lineCallback = NULL,
-  blockCallback = NULL
+  blockCallback = NULL,
+  quiet = F
 )
 }
 \description{
